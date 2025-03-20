@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Road Repair Tracking</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Fixed-height div below navbar */
+        .btn-custom {
+    display: inline-block;
+    padding: 10px 10px;
+    background-color:  #2d8659;/* Light blue background */
+    color: white !important; /* Text color */
+    border-radius: 25px; /* Makes the buttons rounded */
+    text-decoration: none;
+    transition: background 0.3s ease-in-out;
+    margin-left:20px;
+    margin-right:20px;
+}
+
+/* Hover effect */
+.btn-custom:hover {
+    background-color:#00ffbf; /* Slightly darker blue on hover */
+     color: black !important; 
+}
+        .carousel-container {
+            height: 400px; /* Fixed height */
+            width: 100vw; /* Full screen width */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            margin-top: 20px; /* Space below navbar */
+            position: relative;
+        }
+        .carousel-inner {
+            width: 100%;
+            height: 100%;
+        }
+        .carousel-item {
+            width: 100vw; /* Full screen width */
+            height: 100%;
+            transition: transform 1s ease-in-out; /* Smooth transition */
+        }
+        .carousel-img {
+            width: 100vw; /* Full screen width */
+            height: 100%;
+            object-fit: cover; /* Ensures full coverage */
+        }
+         .marquee-text {
+        font-size: 20px; /* Increase font size */
+        letter-spacing: 2px; /* Add space between letters */
+        word-spacing: 8px; /* Add space between words */
+    }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Road Repair Tracking</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+       <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link btn-custom" href="supervisor-auth.html?type=login">Supervisor Login</a></li>
+        <li class="nav-item"><a class="nav-link btn-custom" href="supervisor-auth.html?type=signup">Supervisor Signup</a></li>
+    </ul>
+</div>
+
+    </div>
+</nav>
+
+<!-- Fixed-height Carousel with Smooth Transition -->
+<div class="carousel-container">
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="images/image1.jpg" class="carousel-img" alt="Image 1">
+            </div>
+            <div class="carousel-item">
+                <img src="images/image2.jpg" class="carousel-img" alt="Image 2" height="100">
+            </div>
+             <div class="carousel-item">
+                <img src="images/image3.jpg" class="carousel-img" alt="Image 2" height="100">
+            </div>
+             <div class="carousel-item">
+                <img src="images/image4.jpg" class="carousel-img" alt="Image 2" height="100">
+            </div>
+             <div class="carousel-item">
+                <img src="images/image5.jpg" class="carousel-img" alt="Image 2" height="100">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+</div>
+
+<!-- Scrolling Text (Supervisor Operations) -->
+<div class="bg-dark text-white py-2">
+    <marquee behavior="scroll" direction="left" scrollamount="10" class="marquee-text">
+        This view is related to Supervisor operations. Supervisors can verify complaints, request repairs, allocate resources, and monitor repair progress.
+    </marquee>
+</div>
+
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Auto-Slide Script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let carousel = new bootstrap.Carousel(document.querySelector("#carouselExample"), {
+            interval: 3000, // Auto-slide every 3 seconds
+            wrap: true
+        });
+    });
+</script>
+
+</body>
+</html>

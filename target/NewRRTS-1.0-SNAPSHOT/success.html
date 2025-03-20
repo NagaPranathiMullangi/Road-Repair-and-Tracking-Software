@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supervisor Success</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        
+        /* Custom button styling */
+.btn-custom {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color:  #2d8659;/* Light blue background */
+    color: white !important; /* Text color */
+    border-radius: 25px; /* Makes the buttons rounded */
+    text-decoration: none;
+    transition: background 0.3s ease-in-out;
+    margin-left:20px;
+    margin-right:20px;
+}
+
+/* Hover effect */
+.btn-custom:hover {
+    background-color:#00ffbf; /* Slightly darker blue on hover */
+     color: black !important; 
+}
+
+.welcome-container {
+    margin:auto;
+    display: flex;
+    align-items: center; /* Vertically centers the text with the image */
+    gap: 40px; /* Adds space between the image and the text */
+    background-color: #f4f6f9;
+    justify-content: space-around; 
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 80%; /* Adjust width based on content */
+}
+
+.welcome-container img {
+    width: 100px; /* Adjust size as needed */
+    height: 100px;
+     /* Makes it circular */
+    object-fit: cover;
+    border: 2px solid #343a40;
+}
+
+.welcome-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+        .functions {
+            margin-top: 20px;
+        }
+        .functions p {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .functions-container {
+           
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content horizontally */
+    background-color: #f4f6f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    margin: auto;
+     margin-top:40px;
+}
+
+.function-box {
+   
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 10px;
+    width: 80%;
+}
+
+.function-row {
+    display: flex;
+    justify-content: center; /* Centers the boxes */
+    gap: 20px; /* Adds spacing between boxes */
+    width: 100%;
+}
+
+.function-row .function-box {
+    width: 45%; /* Adjust width for equal sizing */
+}
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Supervisor Panel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn-custom" href="#" onclick="viewComplaints()">View Complaints</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-custom" href="#" onclick="ApprovedComplaints()">Approved Complaints</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+    <!-- Main Content -->
+    <div class="container">
+                    <div class="welcome-container">
+                <img id="supervisorImage" src="images/supervisor.jpg" alt="Supervisor Image">
+                <div class="welcome-box">
+                    <h1>Welcome, <span id="supervisorName"></span>!</h1>
+                    <h2><strong>Assigned Area:</strong> <span id="supervisorArea"></span><h2>
+                    
+                </div>
+                
+            </div>
+
+
+        <div class="functions-container">
+    <div class="function-box">
+        <h2>Supervisor Functionalities</h2>
+    </div>
+    <div class="function-row">
+        <div class="function-box">
+            <p>✅ You can <a href="#" onclick="viewComplaints()">view complaints</a> assigned to your area.</p>
+        </div>
+        <div class="function-box">
+           <p>✅ You can <a href="#" onclick="ApprovedComplaints()">approve complaints</a> based on priority.</p>
+        </div>
+    </div>
+</div>
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Function to get URL parameters
+        function getQueryParam(param) {
+            let urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Display retrieved data
+        document.getElementById("supervisorName").textContent = getQueryParam("fullname") || "N/A";
+        document.getElementById("supervisorArea").textContent = getQueryParam("area") || "N/A";
+
+        function viewComplaints() {
+            var area = getQueryParam("area");
+            var name = getQueryParam("fullname");
+            if (!area || area.trim() === "N/A") {
+                alert("Area not found!");
+                return;
+            }
+
+            // Redirect with POST request
+            var form = document.createElement("form");
+            form.method = "POST";
+            form.action = "ViewComplaintsServlet";
+
+            var input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "area_assigned";
+            input.value = area;
+            
+            var input1 = document.createElement("input");
+            input1.type = "hidden";
+            input1.name = "fullname";
+            input1.value = name;
+
+            form.appendChild(input);
+            form.appendChild(input1);
+            document.body.appendChild(form);
+            form.submit();
+        }
+
+        function ApprovedComplaints() {
+            var area = getQueryParam("area");
+            var name = getQueryParam("fullname");
+            if (!area || area.trim() === "N/A") {
+                alert("Area not found!");
+                return;
+            }
+
+            // Redirect with POST request
+            var form2 = document.createElement("form");
+            form2.method = "POST";
+            form2.action = "ViewApprovedComplaintsServlet";
+
+            var input3 = document.createElement("input");
+            input3.type = "hidden";
+            input3.name = "area_assigned";
+            input3.value = area;
+            
+            var input4 = document.createElement("input");
+            input4.type = "hidden";
+            input4.name = "fullname";
+            input4.value = name;
+
+            form2.appendChild(input3);
+            form2.appendChild(input4);
+            document.body.appendChild(form2);
+            form2.submit();
+        }
+    </script>
+
+</body>
+</html>
