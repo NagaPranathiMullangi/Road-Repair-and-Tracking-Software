@@ -28,11 +28,11 @@ public class ValidateSignupServlet extends HttpServlet {
         String password = request.getParameter("password");
         String area = request.getParameter("area");
 
-        System.out.println("Received Data:");
+        /*System.out.println("Received Data:");
         System.out.println("Full Name: " + fullname);
         System.out.println("Email: " + email);
         System.out.println("Password: " + password);
-        System.out.println("Area Assigned: " + area);
+        System.out.println("Area Assigned: " + area);*/
 
         // Validate input
         if (fullname == null || fullname.isEmpty() ||
@@ -64,21 +64,21 @@ public class ValidateSignupServlet extends HttpServlet {
                     pstmt.setString(3, password);
                     pstmt.setString(4, area);
                     rowsInserted = pstmt.executeUpdate();
-                    System.out.println("Rows inserted: " + rowsInserted);
+                   // System.out.println("Rows inserted: " + rowsInserted);
                 }
             }
 
             if (rowsInserted > 0) {
-                
-                 HttpSession session = request.getSession();
-                    session.setAttribute("supervisorUsername", fullname);
-                    session.setAttribute("supervisorArea", area);
-                    response.sendRedirect("success.html?fullname=" + URLEncoder.encode(fullname, "UTF-8") +
-                                      
-                                      "&area=" + URLEncoder.encode(area, "UTF-8")+"&email=" + URLEncoder.encode(email, "UTF-8"));
-                    response.sendRedirect("success.html");  //
-                
-            } else {
+    HttpSession session = request.getSession();
+    session.setAttribute("supervisorUsername", fullname);
+    session.setAttribute("supervisorArea", area);
+
+    response.sendRedirect("success.html?fullname=" + URLEncoder.encode(fullname, "UTF-8") +
+                          "&area=" + URLEncoder.encode(area, "UTF-8") +
+                          "&email=" + URLEncoder.encode(email, "UTF-8"));
+    return; // ✅ Stop execution after redirect
+}
+             else {
                 System.out.println("Failed to insert into database.");
                 response.sendRedirect("supervisor-auth.html?error=Database error");
             }
